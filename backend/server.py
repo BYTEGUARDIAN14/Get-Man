@@ -49,7 +49,7 @@ async def explain_response(request: AIExplainRequest):
 
         genai.configure(api_key=api_key)
         model = genai.GenerativeModel(
-            model_name="gemini-1.5-flash",
+            model_name="gemini-3-flash-preview",
             system_instruction="You are an API response analyst. Always respond with valid JSON only, no markdown, no backticks, no extra text."
         )
 
