@@ -13,7 +13,7 @@ const ACCENT_COLORS = [
   { name: 'Amber', color: '#A07840' }, { name: 'Rose', color: '#8C5A5A' },
   { name: 'Gray', color: '#5A5A6E' }, { name: 'Terra', color: '#7A5040' },
 ];
-const LANGUAGES = ['English', 'Tamil', 'Hindi'];
+
 
 export default function SettingsScreen() {
   const router = useRouter();
@@ -30,7 +30,7 @@ export default function SettingsScreen() {
     ]);
   };
 
-  const Row = ({ label, right, onPress, color }) => (
+  const Row = ({ label, right, onPress = null, color = null }) => (
     <TouchableOpacity testID={`setting-${label.toLowerCase().replace(/\s+/g, '-')}`} style={styles.row} onPress={onPress} disabled={!onPress} activeOpacity={onPress ? 0.7 : 1}>
       <Text style={[styles.rowLabel, color && { color }]}>{label}</Text>
       {right}
@@ -64,9 +64,7 @@ export default function SettingsScreen() {
         <View style={styles.section}>
           <Row label="AI Explanations" right={<Switch value={s.aiEnabled} onValueChange={v => updateSetting('aiEnabled', v)} trackColor={{ false: Colors.BORDER, true: accent }} thumbColor={Colors.TEXT_PRIMARY} />} />
           <Row label="AI Model" right={<View style={styles.rowRight}><Text style={styles.rowValue}>Gemini Flash</Text><CaretRight size={14} color={Colors.TEXT_MUTED} /></View>} />
-          <Row label="Response Language" right={<View style={styles.rowRight}><Text style={styles.rowValue}>{s.aiLanguage}</Text><CaretRight size={14} color={Colors.TEXT_MUTED} /></View>} onPress={() => {
-            Alert.alert('Language', 'Select language', LANGUAGES.map(l => ({ text: l, onPress: () => updateSetting('aiLanguage', l) })));
-          }} />
+
         </View>
 
         <SectionHeader title="DATA" />

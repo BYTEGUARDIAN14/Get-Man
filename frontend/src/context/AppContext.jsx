@@ -34,7 +34,6 @@ const initialState = {
     followRedirects: true,
     aiEnabled: true,
     aiModel: 'gemini-pro',
-    aiLanguage: 'English',
   },
   currentResponse: null,
   currentRequest: null,
