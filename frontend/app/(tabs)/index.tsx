@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { GearSix } from 'phosphor-react-native';
@@ -35,7 +35,10 @@ export default function HomeScreen() {
     <SafeAreaView testID="home-screen" style={styles.safe}>
       <ScrollView style={styles.scroll} contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         <View style={styles.header}>
-          <Text style={styles.appName}>Apico</Text>
+          <View style={styles.brandContainer}>
+            <Image source={require('../../assets/images/icon.png')} style={styles.logo} />
+            <Text style={styles.appName}>Apico</Text>
+          </View>
           <TouchableOpacity testID="home-settings-btn" onPress={() => router.push('/(tabs)/settings')}>
             <GearSix size={24} color={Colors.TEXT_PRIMARY} />
           </TouchableOpacity>
@@ -94,7 +97,9 @@ const styles = StyleSheet.create({
   scroll: { flex: 1 },
   content: { paddingHorizontal: 16 },
   header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingTop: 8, paddingBottom: 16 },
-  appName: { fontFamily: 'Lora_700Bold', fontSize: 24, color: Colors.TEXT_PRIMARY, letterSpacing: -0.5 },
+  brandContainer: { flexDirection: 'row', alignItems: 'center', gap: 10 },
+  logo: { width: 32, height: 32, borderRadius: 6 },
+  appName: { fontFamily: 'IBMPlexMono_700Bold', fontSize: 22, color: Colors.TEXT_PRIMARY, letterSpacing: -0.5 },
   greeting: { fontFamily: 'Lora_600SemiBold', fontSize: 22, color: Colors.TEXT_PRIMARY },
   date: { fontFamily: 'DMSans_400Regular', fontSize: 13, color: Colors.TEXT_MUTED, marginTop: 4, marginBottom: 20 },
   newBtn: { borderRadius: 10, paddingVertical: 14, alignItems: 'center', marginBottom: 16 },
