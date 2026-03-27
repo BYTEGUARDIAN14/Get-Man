@@ -1,7 +1,7 @@
 # Apico
 
 <p align="center">
-  <img src="assets/icon.png" width="100" alt="Apico Logo" />
+  <img src="frontend/assets/images/icon.png" width="100" alt="Apico Logo" />
 </p>
 
 <p align="center">
