@@ -38,6 +38,7 @@ export default function RootLayout() {
       <AppProvider>
         <StatusBar style="light" />
         <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: Colors.BACKGROUND_BASE }, animation: 'slide_from_right' }}>
+          <Stack.Screen name="index" />
           <Stack.Screen name="(tabs)" />
           <Stack.Screen name="request-builder" />
           <Stack.Screen name="response" />
