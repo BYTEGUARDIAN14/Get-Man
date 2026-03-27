@@ -98,7 +98,7 @@ export default function CollectionsScreen() {
 const styles = StyleSheet.create({
   safe: { flex: 1, backgroundColor: Colors.BACKGROUND_BASE },
   header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 16, paddingTop: 8, paddingBottom: 12 },
-  title: { fontFamily: 'Lora_700Bold', fontSize: 22, color: Colors.TEXT_PRIMARY },
+  title: { fontFamily: 'IBMPlexMono_700Bold', fontSize: 22, color: Colors.TEXT_PRIMARY },
   newBtn: { fontFamily: 'DMSans_500Medium', fontSize: 14, color: Colors.ACCENT },
   searchRow: { flexDirection: 'row', alignItems: 'center', marginHorizontal: 16, marginBottom: 12, backgroundColor: Colors.BACKGROUND_ELEVATED, borderWidth: 1, borderColor: Colors.BORDER, borderRadius: 6, paddingHorizontal: 10 },
   searchInput: { flex: 1, paddingVertical: 8, marginLeft: 8, fontFamily: 'DMSans_400Regular', fontSize: 14, color: Colors.TEXT_PRIMARY },

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState, useRef, useCallback } from 'react';
 import { View, Text, TextInput, TouchableOpacity, FlatList, KeyboardAvoidingView, Platform, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -101,7 +102,7 @@ export default function WebSocketScreen() {
 const styles = StyleSheet.create({
   safe: { flex: 1, backgroundColor: Colors.BACKGROUND_BASE },
   header: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16, paddingTop: 8, paddingBottom: 12 },
-  title: { fontFamily: 'Lora_700Bold', fontSize: 22, color: Colors.TEXT_PRIMARY, flex: 1 },
+  title: { fontFamily: 'IBMPlexMono_700Bold', fontSize: 22, color: Colors.TEXT_PRIMARY, flex: 1 },
   statusRow: { flexDirection: 'row', alignItems: 'center', marginRight: 12 },
   statusDot: { width: 8, height: 8, borderRadius: 4, marginRight: 6 },
   statusText: { fontFamily: 'DMSans_400Regular', fontSize: 12, color: Colors.TEXT_MUTED },

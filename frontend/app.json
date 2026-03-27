@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "APIPlayground",
-    "slug": "apiplayground",
+    "name": "Apico",
+    "slug": "apico",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",

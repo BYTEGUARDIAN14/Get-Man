@@ -92,7 +92,7 @@ export default function EnvironmentsScreen() {
 
 const styles = StyleSheet.create({
   safe: { flex: 1, backgroundColor: Colors.BACKGROUND_BASE },
-  title: { fontFamily: 'Lora_700Bold', fontSize: 22, color: Colors.TEXT_PRIMARY, paddingHorizontal: 16, paddingTop: 8, paddingBottom: 12 },
+  title: { fontFamily: 'IBMPlexMono_700Bold', fontSize: 22, color: Colors.TEXT_PRIMARY, paddingHorizontal: 16, paddingTop: 8, paddingBottom: 12 },
   list: { paddingHorizontal: 16, paddingBottom: 80 },
   card: { backgroundColor: Colors.SURFACE, borderWidth: 1, borderColor: Colors.BORDER, borderRadius: 10, marginBottom: 8, overflow: 'hidden' },
   activeCard: { borderLeftWidth: 3, borderLeftColor: Colors.ACCENT, backgroundColor: '#292520' },

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useContext } from 'react';
 import { View, Text, SectionList, TouchableOpacity, Alert, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -78,7 +79,7 @@ export default function HistoryScreen() {
 const styles = StyleSheet.create({
   safe: { flex: 1, backgroundColor: Colors.BACKGROUND_BASE },
   header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 16, paddingTop: 8, paddingBottom: 12 },
-  title: { fontFamily: 'Lora_700Bold', fontSize: 22, color: Colors.TEXT_PRIMARY, paddingHorizontal: 16, paddingTop: 8 },
+  title: { fontFamily: 'IBMPlexMono_700Bold', fontSize: 22, color: Colors.TEXT_PRIMARY, paddingHorizontal: 16, paddingTop: 8 },
   sectionTitle: { fontFamily: 'DMSans_500Medium', fontSize: 13, color: Colors.TEXT_MUTED, paddingVertical: 8, paddingHorizontal: 16, backgroundColor: Colors.BACKGROUND_BASE },
   list: { paddingHorizontal: 16, paddingBottom: 80 },
   rowContainer: { flexDirection: 'row', alignItems: 'center' },

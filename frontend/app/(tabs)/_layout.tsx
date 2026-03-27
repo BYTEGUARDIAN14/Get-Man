@@ -34,7 +34,7 @@ export default function TabLayout() {
         tabBarIcon: ({ color }) => <Globe size={22} color={color} />,
       }} />
       <Tabs.Screen name="websocket" options={{
-        title: '',
+        title: 'WebSocket',
         tabBarIcon: ({ color }) => <WifiHigh size={22} color={color} />,
       }} />
       <Tabs.Screen name="settings" options={{

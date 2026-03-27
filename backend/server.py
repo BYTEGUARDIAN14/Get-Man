@@ -30,7 +30,7 @@ class AIExplainRequest(BaseModel):
 
 @api_router.get("/")
 async def root():
-    return {"message": "APIPlayground Backend Running"}
+    return {"message": "Apico Backend Running"}
 
 
 @api_router.get("/health")

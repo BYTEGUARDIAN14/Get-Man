@@ -35,7 +35,7 @@ export default function HomeScreen() {
     <SafeAreaView testID="home-screen" style={styles.safe}>
       <ScrollView style={styles.scroll} contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         <View style={styles.header}>
-          <Text style={styles.appName}>APIPlayground</Text>
+          <Text style={styles.appName}>Apico</Text>
           <TouchableOpacity testID="home-settings-btn" onPress={() => router.push('/(tabs)/settings')}>
             <GearSix size={24} color={Colors.TEXT_PRIMARY} />
           </TouchableOpacity>
