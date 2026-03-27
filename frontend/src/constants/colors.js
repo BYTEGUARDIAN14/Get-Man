@@ -1,0 +1,22 @@
+export const Colors = {
+  BACKGROUND_BASE: '#141210',
+  BACKGROUND_ELEVATED: '#1C1916',
+  SURFACE: '#232018',
+  BORDER: '#2E2A24',
+  ACCENT: '#5A7A5C',
+  ACCENT_HOVER: '#6E9470',
+  SUCCESS: '#5A7A5C',
+  WARNING: '#A07840',
+  ERROR: '#8C4040',
+  TEXT_PRIMARY: '#EDE8DF',
+  TEXT_SECONDARY: '#8A8278',
+  TEXT_MUTED: '#5C5750',
+};
+
+export const MethodColors = {
+  GET: '#3D6B4F',
+  POST: '#3D5470',
+  PUT: '#7A5C30',
+  PATCH: '#5C3D70',
+  DELETE: '#7A3D3D',
+};
