@@ -77,8 +77,8 @@ export default function SettingsScreen() {
         <View style={styles.section}>
           <Row label="App Version" right={<Text style={styles.rowValue}>v1.0.0</Text>} />
           <Row label="WebSocket Client" right={<CaretRight size={14} color={Colors.TEXT_MUTED} />} onPress={() => router.push('/(tabs)/websocket')} />
-          <Row label="GitHub" right={<ArrowSquareOut size={14} color={Colors.TEXT_MUTED} />} onPress={() => Linking.openURL('https://github.com')} />
-          <Row label="Send Feedback" right={<CaretRight size={14} color={Colors.TEXT_MUTED} />} onPress={() => Linking.openURL('mailto:feedback@apiplayground.dev')} />
+          <Row label="GitHub" right={<ArrowSquareOut size={14} color={Colors.TEXT_MUTED} />} onPress={() => Linking.openURL('https://github.com/BYTEGUARDIAN14/Get-Man')} />
+          <Row label="Send Feedback" right={<CaretRight size={14} color={Colors.TEXT_MUTED} />} onPress={() => Linking.openURL('mailto:byteaegis@gmail.com')} />
         </View>
         <View style={{ height: 80 }} />
       </ScrollView>
