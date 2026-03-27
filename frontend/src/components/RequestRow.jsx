@@ -26,5 +26,5 @@ const styles = StyleSheet.create({
   },
   center: { flex: 1, marginHorizontal: 10 },
   url: { fontFamily: 'IBMPlexMono_400Regular', fontSize: 12, color: Colors.TEXT_PRIMARY },
-  time: { fontFamily: 'DMSans_400Regular', fontSize: 11, color: Colors.TEXT_MUTED, marginTop: 2 },
+  time: { fontFamily: 'IBMPlexMono_400Regular', fontSize: 11, color: Colors.TEXT_MUTED, marginTop: 2 },
 });

@@ -1,8 +1,11 @@
 import { Stack } from 'expo-router';
 import { useFonts } from 'expo-font';
-import { Lora_400Regular, Lora_500Medium, Lora_600SemiBold, Lora_700Bold } from '@expo-google-fonts/lora';
-import { DMSans_400Regular, DMSans_500Medium, DMSans_600SemiBold } from '@expo-google-fonts/dm-sans';
-import { IBMPlexMono_400Regular, IBMPlexMono_500Medium, IBMPlexMono_700Bold } from '@expo-google-fonts/ibm-plex-mono';
+import { 
+  IBMPlexMono_400Regular, 
+  IBMPlexMono_500Medium, 
+  IBMPlexMono_600SemiBold, 
+  IBMPlexMono_700Bold 
+} from '@expo-google-fonts/ibm-plex-mono';
 import { AppProvider } from '../src/context/AppContext';
 import { Colors } from '../src/constants/colors';
 import * as SplashScreen from 'expo-splash-screen';
@@ -15,15 +18,9 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
-    Lora_400Regular,
-    Lora_500Medium,
-    Lora_600SemiBold,
-    Lora_700Bold,
-    DMSans_400Regular,
-    DMSans_500Medium,
-    DMSans_600SemiBold,
     IBMPlexMono_400Regular,
     IBMPlexMono_500Medium,
+    IBMPlexMono_600SemiBold,
     IBMPlexMono_700Bold,
   });
 

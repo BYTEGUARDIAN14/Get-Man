@@ -93,5 +93,5 @@ const styles = StyleSheet.create({
   valueInput: { marginRight: 6 },
   deleteBtn: { padding: 8 },
   addBtn: { paddingVertical: 8 },
-  addText: { fontFamily: 'DMSans_500Medium', fontSize: 13, color: Colors.ACCENT },
+  addText: { fontFamily: 'IBMPlexMono_500Medium', fontSize: 13, color: Colors.ACCENT },
 });

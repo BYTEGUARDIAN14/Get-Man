@@ -105,8 +105,8 @@ const styles = StyleSheet.create({
   title: { fontFamily: 'IBMPlexMono_700Bold', fontSize: 22, color: Colors.TEXT_PRIMARY, flex: 1 },
   statusRow: { flexDirection: 'row', alignItems: 'center', marginRight: 12 },
   statusDot: { width: 8, height: 8, borderRadius: 4, marginRight: 6 },
-  statusText: { fontFamily: 'DMSans_400Regular', fontSize: 12, color: Colors.TEXT_MUTED },
-  clearText: { fontFamily: 'DMSans_400Regular', fontSize: 12, color: Colors.TEXT_MUTED },
+  statusText: { fontFamily: 'IBMPlexMono_400Regular', fontSize: 12, color: Colors.TEXT_MUTED },
+  clearText: { fontFamily: 'IBMPlexMono_400Regular', fontSize: 12, color: Colors.TEXT_MUTED },
   urlRow: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16, marginBottom: 8, gap: 8 },
   urlInput: { flex: 1, backgroundColor: Colors.BACKGROUND_ELEVATED, borderWidth: 1, borderColor: Colors.BORDER, borderRadius: 6, paddingHorizontal: 12, paddingVertical: 10, fontFamily: 'IBMPlexMono_400Regular', fontSize: 13, color: Colors.TEXT_PRIMARY },
   connectBtn: { paddingHorizontal: 16, paddingVertical: 10 },
@@ -119,5 +119,5 @@ const styles = StyleSheet.create({
   sendInput: { flex: 1, backgroundColor: Colors.BACKGROUND_ELEVATED, borderWidth: 1, borderColor: Colors.BORDER, borderRadius: 6, paddingHorizontal: 12, paddingVertical: 10, fontFamily: 'IBMPlexMono_400Regular', fontSize: 13, color: Colors.TEXT_PRIMARY },
   sendBtn: { borderRadius: 10, paddingHorizontal: 16, paddingVertical: 10 },
   sendBtnDisabled: { opacity: 0.4 },
-  sendBtnText: { fontFamily: 'DMSans_500Medium', fontSize: 14, color: Colors.TEXT_PRIMARY },
+  sendBtnText: { fontFamily: 'IBMPlexMono_500Medium', fontSize: 14, color: Colors.TEXT_PRIMARY },
 });

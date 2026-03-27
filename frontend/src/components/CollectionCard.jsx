@@ -24,6 +24,6 @@ const styles = StyleSheet.create({
   },
   swatch: { width: 10, height: 10, borderRadius: 2 },
   info: { flex: 1, marginLeft: 12 },
-  name: { fontFamily: 'DMSans_500Medium', fontSize: 14, color: Colors.TEXT_PRIMARY },
-  sub: { fontFamily: 'DMSans_400Regular', fontSize: 12, color: Colors.TEXT_MUTED, marginTop: 2 },
+  name: { fontFamily: 'IBMPlexMono_500Medium', fontSize: 14, color: Colors.TEXT_PRIMARY },
+  sub: { fontFamily: 'IBMPlexMono_400Regular', fontSize: 12, color: Colors.TEXT_MUTED, marginTop: 2 },
 });

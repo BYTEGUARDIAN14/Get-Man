@@ -30,5 +30,5 @@ const styles = StyleSheet.create({
     alignItems: 'center', justifyContent: 'center',
   },
   disabled: { opacity: 0.5 },
-  text: { fontFamily: 'DMSans_500Medium', fontSize: 15, color: Colors.TEXT_PRIMARY },
+  text: { fontFamily: 'IBMPlexMono_500Medium', fontSize: 15, color: Colors.TEXT_PRIMARY },
 });

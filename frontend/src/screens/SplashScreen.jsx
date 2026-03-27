@@ -142,13 +142,13 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   title: {
-    fontFamily: 'Lora_500Medium',
+    fontFamily: 'IBMPlexMono_500Medium',
     fontSize: 48,
     color: TEXT_PRIMARY,
     letterSpacing: 2,
   },
   tagline: {
-    fontFamily: 'DMSans_400Regular',
+    fontFamily: 'IBMPlexMono_400Regular',
     fontSize: 14,
     color: TEXT_MUTED,
     letterSpacing: 0.5,
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
     bottom: 24,
   },
   version: {
-    fontFamily: 'DMSans_400Regular',
+    fontFamily: 'IBMPlexMono_400Regular',
     fontSize: 11,
     color: TEXT_MUTED,
   },

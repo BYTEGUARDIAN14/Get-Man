@@ -17,6 +17,6 @@ const styles = StyleSheet.create({
     padding: 16, marginBottom: 12,
     shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.35, shadowRadius: 8, elevation: 4,
   },
-  title: { fontFamily: 'DMSans_500Medium', fontSize: 13, color: Colors.TEXT_SECONDARY, textTransform: 'uppercase', marginBottom: 8 },
-  body: { fontFamily: 'DMSans_400Regular', fontSize: 14, color: Colors.TEXT_PRIMARY, lineHeight: 22 },
+  title: { fontFamily: 'IBMPlexMono_500Medium', fontSize: 13, color: Colors.TEXT_SECONDARY, textTransform: 'uppercase', marginBottom: 8 },
+  body: { fontFamily: 'IBMPlexMono_400Regular', fontSize: 14, color: Colors.TEXT_PRIMARY, lineHeight: 22 },
 });

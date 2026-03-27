@@ -24,6 +24,6 @@ const styles = StyleSheet.create({
   content: { paddingHorizontal: 16 },
   tab: { paddingVertical: 10, paddingHorizontal: 14, marginRight: 4 },
   activeTab: { borderBottomWidth: 2, borderBottomColor: Colors.ACCENT },
-  tabText: { fontFamily: 'DMSans_400Regular', fontSize: 13, color: Colors.TEXT_MUTED },
-  activeTabText: { color: Colors.TEXT_PRIMARY, fontFamily: 'DMSans_500Medium' },
+  tabText: { fontFamily: 'IBMPlexMono_400Regular', fontSize: 13, color: Colors.TEXT_MUTED },
+  activeTabText: { color: Colors.TEXT_PRIMARY, fontFamily: 'IBMPlexMono_500Medium' },
 });

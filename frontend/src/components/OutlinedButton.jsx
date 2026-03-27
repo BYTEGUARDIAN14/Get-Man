@@ -13,5 +13,5 @@ export default function OutlinedButton({ title, onPress, color, style }) {
 
 const styles = StyleSheet.create({
   btn: { borderWidth: 1, borderRadius: 10, paddingVertical: 12, alignItems: 'center', justifyContent: 'center' },
-  text: { fontFamily: 'DMSans_500Medium', fontSize: 14 },
+  text: { fontFamily: 'IBMPlexMono_500Medium', fontSize: 14 },
 });

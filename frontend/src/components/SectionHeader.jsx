@@ -12,5 +12,5 @@ export default function SectionHeader({ title }) {
 
 const styles = StyleSheet.create({
   container: { paddingVertical: 12, paddingHorizontal: 0 },
-  text: { fontFamily: 'DMSans_500Medium', fontSize: 11, color: Colors.TEXT_MUTED, letterSpacing: 1.5, textTransform: 'uppercase' },
+  text: { fontFamily: 'IBMPlexMono_500Medium', fontSize: 11, color: Colors.TEXT_MUTED, letterSpacing: 1.5, textTransform: 'uppercase' },
 });

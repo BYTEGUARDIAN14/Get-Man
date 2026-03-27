@@ -88,13 +88,13 @@ export default function SettingsScreen() {
 
 const styles = StyleSheet.create({
   safe: { flex: 1, backgroundColor: Colors.BACKGROUND_BASE },
-  title: { fontFamily: 'Lora_700Bold', fontSize: 24, color: Colors.TEXT_PRIMARY, paddingHorizontal: 16, paddingTop: 8, paddingBottom: 4, letterSpacing: -0.5 },
+  title: { fontFamily: 'IBMPlexMono_700Bold', fontSize: 24, color: Colors.TEXT_PRIMARY, paddingHorizontal: 16, paddingTop: 8, paddingBottom: 4, letterSpacing: -0.5 },
   scroll: { flex: 1 },
   content: { paddingHorizontal: 16 },
   section: { backgroundColor: Colors.SURFACE, borderWidth: 1, borderColor: Colors.BORDER, borderRadius: 10, overflow: 'hidden' },
   row: { height: 52, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 16, borderBottomWidth: 1, borderBottomColor: Colors.BORDER },
-  rowLabel: { fontFamily: 'DMSans_400Regular', fontSize: 14, color: Colors.TEXT_PRIMARY },
-  rowValue: { fontFamily: 'DMSans_400Regular', fontSize: 14, color: Colors.TEXT_MUTED },
+  rowLabel: { fontFamily: 'IBMPlexMono_400Regular', fontSize: 14, color: Colors.TEXT_PRIMARY },
+  rowValue: { fontFamily: 'IBMPlexMono_400Regular', fontSize: 14, color: Colors.TEXT_MUTED },
   rowRight: { flexDirection: 'row', alignItems: 'center', gap: 6 },
   swatchRow: { flexDirection: 'row', gap: 8 },
   swatch: { width: 28, height: 28, borderRadius: 14 },
