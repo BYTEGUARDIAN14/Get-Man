@@ -8,7 +8,7 @@ APIPlayground is a mobile-first REST API testing tool built for CSE students usi
 - **Backend**: Python FastAPI with Gemini AI proxy
 - **Database**: MongoDB (for backend state if needed)
 - **State Management**: React Context + useReducer with AsyncStorage persistence
-- **AI**: Google Gemini 3 Flash via Emergent LLM Key
+- **AI**: Google Gemini 3 Flash via Google Gemini API Key
 - **Fonts**: Lora (headings), DM Sans (body), IBM Plex Mono (code)
 - **Icons**: Phosphor React Native
 

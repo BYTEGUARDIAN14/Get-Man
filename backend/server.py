@@ -43,7 +43,7 @@ async def explain_response(request: AIExplainRequest):
     try:
         import google.generativeai as genai
 
-        api_key = os.environ.get('GEMINI_API_KEY') or os.environ.get('EMERGENT_LLM_KEY')
+        api_key = os.environ.get('GEMINI_API_KEY')
         if not api_key:
             raise HTTPException(status_code=500, detail="AI key not configured")
 

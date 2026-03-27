@@ -30,7 +30,7 @@
     "✓ React Native components used correctly (View, Text, TouchableOpacity)",
     "✓ StyleSheet.create() used for all styles",
     "✓ Environment variables properly configured (EXPO_PUBLIC_BACKEND_URL)",
-    "✓ Backend uses EMERGENT_LLM_KEY correctly for Gemini AI",
+    "✓ Backend uses GEMINI_API_KEY correctly for Gemini AI",
     "✓ Error handling present in API calls",
     "✓ No hardcoded URLs or credentials",
     "✓ MongoDB connection properly configured",
