@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, TextInput, ActivityIndicator, StyleSheet, Share } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
-import { CaretLeft, Copy, MagnifyingGlass } from 'phosphor-react-native';
+import { CaretLeft, Copy, MagnifyingGlass, WarningCircle } from 'phosphor-react-native';
 import * as Clipboard from 'expo-clipboard';
 import { AppContext, useTheme } from '../src/context/AppContext';
 import { Colors } from '../src/constants/colors';
@@ -24,7 +24,7 @@ function getStatusColor(status, accent) {
 export default function ResponseScreen() {
   const router = useRouter();
   const { state, dispatch } = useContext(AppContext);
-  const { explain, explanation, loading: aiLoading } = useAI();
+  const { explain, explanation, loading: aiLoading, error } = useAI();
   const { accent } = useTheme();
   const [activeTab, setActiveTab] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
@@ -109,11 +109,21 @@ export default function ResponseScreen() {
         ))}
       </View>
     );
-    if (!explanation) return (
-      <View style={styles.emptyWrap}>
-        <Text style={styles.emptyText}>{state.settings.aiEnabled ? 'AI analysis unavailable' : 'AI explanations disabled'}</Text>
-      </View>
-    );
+    if (!explanation) {
+      if (error) {
+        return (
+          <View style={styles.errorWrap}>
+            <WarningCircle size={24} color={Colors.WARNING} style={{ marginBottom: 8 }} />
+            <Text style={styles.errorText}>{error}</Text>
+          </View>
+        );
+      }
+      return (
+        <View style={styles.emptyWrap}>
+          <Text style={styles.emptyText}>{state.settings.aiEnabled ? 'AI analysis unavailable' : 'AI explanations disabled'}</Text>
+        </View>
+      );
+    }
     return (
       <View>
         <Text style={styles.aiLabel}>AI ANALYSIS</Text>
@@ -183,4 +193,6 @@ const styles = StyleSheet.create({
   actionDot: { fontFamily: 'IBMPlexMono_400Regular', fontSize: 13, color: Colors.TEXT_MUTED, marginHorizontal: 12 },
   emptyWrap: { flex: 1, justifyContent: 'center', alignItems: 'center', paddingVertical: 40 },
   emptyText: { fontFamily: 'IBMPlexMono_400Regular', fontSize: 14, color: Colors.TEXT_MUTED },
+  errorWrap: { flex: 1, justifyContent: 'center', alignItems: 'center', paddingVertical: 60, paddingHorizontal: 40 },
+  errorText: { fontFamily: 'IBMPlexMono_400Regular', fontSize: 14, color: Colors.TEXT_SECONDARY, textAlign: 'center' },
 });

@@ -1,4 +1,5 @@
 from fastapi import FastAPI, APIRouter, HTTPException
+from fastapi.responses import JSONResponse
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -6,9 +7,12 @@ import os
 import logging
 import json
 import uuid
+import asyncio
 from pathlib import Path
 from pydantic import BaseModel, Field
 from typing import List
+from google import genai
+from google.genai import types
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
@@ -41,18 +45,13 @@ async def health():
 @api_router.post("/ai/explain")
 async def explain_response(request: AIExplainRequest):
     try:
-        import google.generativeai as genai
-
         api_key = os.environ.get('GEMINI_API_KEY')
         if not api_key:
-            raise HTTPException(status_code=500, detail="AI key not configured")
+            return JSONResponse(status_code=500, content={"error": "AI key not configured"})
 
-        genai.configure(api_key=api_key)
-        model = genai.GenerativeModel(
-            model_name="gemini-3-flash-preview",
-            system_instruction="You are an API response analyst. Always respond with valid JSON only, no markdown, no backticks, no extra text."
-        )
-
+        # Initialize the new SDK client
+        genai_client = genai.Client(api_key=api_key)
+        
         body_preview = request.body[:2000] if len(request.body) > 2000 else request.body
 
         prompt = f"""Analyze the following API response and return ONLY a JSON object with no markdown, no backticks, no extra text:
@@ -68,29 +67,43 @@ URL: {request.url}
 Status: {request.status}
 Response Body: {body_preview}"""
 
-        response = await model.generate_content_async(prompt)
-        response_text = response.text
+        try:
+            # Use the new SDK generation with a timeout
+            response = await asyncio.wait_for(
+                genai_client.aio.models.generate_content(
+                    model='models/gemini-3-flash-preview',
+                    contents=prompt,
+                    config=types.GenerateContentConfig(
+                        system_instruction="You are an API response analyst. Always respond with valid JSON only, no markdown, no backticks, no extra text."
+                    )
+                ),
+                timeout=10.0
+            )
+            
+            response_text = response.text
 
-        cleaned = response_text.strip()
-        if cleaned.startswith("```"):
-            lines = cleaned.split("\n")
-            cleaned = "\n".join(lines[1:])
-            if cleaned.endswith("```"):
-                cleaned = cleaned[:-3]
-            cleaned = cleaned.strip()
+            cleaned = response_text.strip()
+            if cleaned.startswith("```"):
+                lines = cleaned.split("\n")
+                cleaned = "\n".join(lines[1:])
+                if cleaned.endswith("```"):
+                    cleaned = cleaned[:-3]
+                cleaned = cleaned.strip()
 
-        result = json.loads(cleaned)
-        return result
-    except json.JSONDecodeError:
-        return {
-            "whatItMeans": "The AI returned a response that could not be parsed as JSON.",
-            "whyItHappened": "The AI model response format was unexpected.",
-            "howToFix": "",
-            "testCases": ["Retry the request", "Check API endpoint", "Verify request parameters"]
-        }
+            result = json.loads(cleaned)
+            return result
+        except asyncio.TimeoutError:
+            return JSONResponse(status_code=504, content={"error": "AI request timed out. Please try again."})
+        except json.JSONDecodeError:
+            return {
+                "whatItMeans": "The AI returned a response that could not be parsed as JSON.",
+                "whyItHappened": "The AI model response format was unexpected.",
+                "howToFix": "",
+                "testCases": ["Retry the request", "Check API endpoint", "Verify request parameters"]
+            }
     except Exception as e:
         logging.error(f"AI explain error: {str(e)}")
-        raise HTTPException(status_code=500, detail=f"AI analysis failed: {str(e)}")
+        return JSONResponse(status_code=500, content={"error": "AI analysis failed. Check your API key and try again."})
 
 
 app.include_router(api_router)

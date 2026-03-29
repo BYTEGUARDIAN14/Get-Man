@@ -11,10 +11,14 @@ export function useAI() {
     setLoading(true);
     setError(null);
     setExplanation(null);
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 15000);
+
     try {
       const response = await fetch(BACKEND_URL + '/api/ai/explain', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        signal: controller.signal,
         body: JSON.stringify({
           method: method || 'GET',
           url: url || '',
@@ -22,14 +26,22 @@ export function useAI() {
           body: typeof body === 'string' ? body : JSON.stringify(body || {}),
         }),
       });
-      if (!response.ok) throw new Error('AI analysis failed');
+      if (!response.ok) {
+        const errData = await response.json().catch(() => ({}));
+        throw new Error(errData.error || errData.detail || 'AI analysis failed');
+      }
       const data = await response.json();
       setExplanation(data);
       return data;
     } catch (err) {
-      setError(err.message);
+      if (err.name === 'AbortError') {
+        setError('Request timed out. Check your connection.');
+      } else {
+        setError(err.message);
+      }
       return null;
     } finally {
+      clearTimeout(timeoutId);
       setLoading(false);
     }
   }, []);
