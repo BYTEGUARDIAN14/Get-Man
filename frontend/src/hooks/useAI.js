@@ -12,7 +12,7 @@ export function useAI() {
     setError(null);
     setExplanation(null);
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 15000);
+    const timeoutId = setTimeout(() => controller.abort(), 30000);
 
     try {
       const response = await fetch(BACKEND_URL + '/api/ai/explain', {

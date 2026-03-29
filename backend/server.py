@@ -77,7 +77,7 @@ Response Body: {body_preview}"""
                         system_instruction="You are an API response analyst. Always respond with valid JSON only, no markdown, no backticks, no extra text."
                     )
                 ),
-                timeout=10.0
+                timeout=25.0
             )
             
             response_text = response.text
