@@ -5,6 +5,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { CaretLeft, Copy, MagnifyingGlass, WarningCircle, ClockClockwise, Check } from 'phosphor-react-native';
 import * as Clipboard from 'expo-clipboard';
+import * as FileSystem from 'expo-file-system/legacy';
+import * as Sharing from 'expo-sharing';
 import { AppContext, useTheme } from '../src/context/AppContext';
 import { Colors } from '../src/constants/colors';
 import { formatTime, formatBytes } from '../src/utils/formatResponse';
@@ -66,7 +68,27 @@ export default function ResponseScreen() {
   const headersArr = response.headers ? Object.entries(response.headers) : [];
 
   const copyBody = async () => { await Clipboard.setStringAsync(bodyStr); };
-  const shareResponse = async () => { await Share.share({ message: bodyStr }); };
+  const shareResponse = async () => {
+    try {
+      const fileName = `response_${new Date().getTime()}.json`;
+      const filePath = `${FileSystem.cacheDirectory}${fileName}`;
+      await FileSystem.writeAsStringAsync(filePath, bodyStr);
+      
+      const isAvailable = await Sharing.isAvailableAsync();
+      if (isAvailable) {
+        await Sharing.shareAsync(filePath, {
+          mimeType: 'application/json',
+          dialogTitle: 'Share Response',
+          UTI: 'public.json'
+        });
+      } else {
+        await Share.share({ message: bodyStr });
+      }
+    } catch (error) {
+      console.error("Share failed:", error);
+      await Share.share({ message: bodyStr });
+    }
+  };
   const replay = () => {
     if (request) router.push({ pathname: '/request-builder', params: { method: request.method, url: request.url } });
   };
