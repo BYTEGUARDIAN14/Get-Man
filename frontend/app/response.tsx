@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, TextInput, ActivityIndicator, StyleSheet, Share } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
-import { CaretLeft, Copy, MagnifyingGlass, WarningCircle } from 'phosphor-react-native';
+import { CaretLeft, Copy, MagnifyingGlass, WarningCircle, ClockClockwise, Check } from 'phosphor-react-native';
 import * as Clipboard from 'expo-clipboard';
 import { AppContext, useTheme } from '../src/context/AppContext';
 import { Colors } from '../src/constants/colors';
@@ -29,6 +29,7 @@ export default function ResponseScreen() {
   const [activeTab, setActiveTab] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
   const [aiRequested, setAiRequested] = useState(false);
+  const [showHistorySheet, setShowHistorySheet] = useState(false);
 
   const response = state.currentResponse;
   const request = state.currentRequest;
@@ -68,6 +69,16 @@ export default function ResponseScreen() {
   const shareResponse = async () => { await Share.share({ message: bodyStr }); };
   const replay = () => {
     if (request) router.push({ pathname: '/request-builder', params: { method: request.method, url: request.url } });
+  };
+  const handleCompare = (historyItem) => {
+    setShowHistorySheet(false);
+    router.push({
+      pathname: '/response-diff',
+      params: { 
+        currentId: 'current', 
+        compareId: historyItem.id 
+      }
+    });
   };
 
   const renderBody = () => (
@@ -158,12 +169,36 @@ export default function ResponseScreen() {
       </ScrollView>
 
       <View style={styles.actionRow}>
-        <TouchableOpacity testID="save-request-btn" onPress={copyBody}><Text style={styles.actionText}>Save Request</Text></TouchableOpacity>
+        <TouchableOpacity testID="compare-btn" onPress={() => setShowHistorySheet(true)}><Text style={styles.actionText}>Compare</Text></TouchableOpacity>
         <Text style={styles.actionDot}>·</Text>
         <TouchableOpacity testID="share-btn" onPress={shareResponse}><Text style={styles.actionText}>Share</Text></TouchableOpacity>
         <Text style={styles.actionDot}>·</Text>
         <TouchableOpacity testID="replay-btn" onPress={replay}><Text style={styles.actionText}>Replay</Text></TouchableOpacity>
       </View>
+
+      <Modal visible={showHistorySheet} transparent animationType="slide">
+        <TouchableOpacity style={styles.overlay} activeOpacity={1} onPress={() => setShowHistorySheet(false)}>
+          <View style={styles.sheet}>
+            <View style={styles.handle} />
+            <Text style={styles.sheetTitle}>Compare With...</Text>
+            {state.history.length === 0 ? (
+               <Text style={styles.emptyText}>No history available for comparison</Text>
+            ) : (
+              <ScrollView style={{ maxHeight: 400 }}>
+                {state.history.map(h => (
+                  <TouchableOpacity key={h.id} style={styles.methodOption} onPress={() => handleCompare(h)}>
+                    <ClockClockwise size={18} color={Colors.TEXT_MUTED} style={{ marginRight: 12 }} />
+                    <View style={{ flex: 1 }}>
+                      <Text style={styles.methodOptionText} numberOfLines={1}>{h.name || h.url}</Text>
+                      <Text style={{ fontSize: 11, color: Colors.TEXT_MUTED }}>{new Date(h.timestamp).toLocaleString()}</Text>
+                    </View>
+                  </TouchableOpacity>
+                ))}
+              </ScrollView>
+            )}
+          </View>
+        </TouchableOpacity>
+      </Modal>
     </SafeAreaView>
   );
 }
@@ -195,4 +230,10 @@ const styles = StyleSheet.create({
   emptyText: { fontFamily: 'IBMPlexMono_400Regular', fontSize: 14, color: Colors.TEXT_MUTED },
   errorWrap: { flex: 1, justifyContent: 'center', alignItems: 'center', paddingVertical: 60, paddingHorizontal: 40 },
   errorText: { fontFamily: 'IBMPlexMono_400Regular', fontSize: 14, color: Colors.TEXT_SECONDARY, textAlign: 'center' },
+  overlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.5)', justifyContent: 'flex-end' },
+  sheet: { backgroundColor: Colors.BACKGROUND_ELEVATED, borderTopLeftRadius: 20, borderTopRightRadius: 20, padding: 20, paddingBottom: 40 },
+  handle: { width: 40, height: 4, borderRadius: 2, backgroundColor: Colors.BORDER, alignSelf: 'center', marginBottom: 16 },
+  sheetTitle: { fontFamily: 'IBMPlexMono_700Bold', fontSize: 18, color: Colors.TEXT_PRIMARY, marginBottom: 16 },
+  methodOption: { flexDirection: 'row', alignItems: 'center', paddingVertical: 12, borderBottomWidth: 1, borderBottomColor: Colors.BORDER },
+  methodOptionText: { fontFamily: 'IBMPlexMono_400Regular', fontSize: 14, color: Colors.TEXT_PRIMARY },
 });
