@@ -3,7 +3,8 @@ import React, { useContext, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, FlatList, Modal, ScrollView, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
-import { MagnifyingGlass, CaretRight, Play, Plus } from 'phosphor-react-native';
+import { MagnifyingGlass, CaretRight, Play, Plus, ShareNetwork } from 'phosphor-react-native';
+import { shareCollection } from '../../src/utils/postmanUtils';
 import { AppContext } from '../../src/context/AppContext';
 import { Colors } from '../../src/constants/colors';
 import { useRequest } from '../../src/hooks/useRequest';
@@ -45,6 +46,9 @@ export default function CollectionsScreen() {
           <Text style={styles.cardName}>{item.name}</Text>
           <Text style={styles.cardSub}>{item.requests?.length || 0} requests</Text>
         </View>
+        <TouchableOpacity style={{ marginRight: 12 }} onPress={() => shareCollection(item)}>
+          <ShareNetwork size={20} color={Colors.TEXT_MUTED} />
+        </TouchableOpacity>
         <CaretRight size={16} color={Colors.TEXT_MUTED} style={{ transform: [{ rotate: expandedId === item.id ? '90deg' : '0deg' }] }} />
       </TouchableOpacity>
       {expandedId === item.id && (
