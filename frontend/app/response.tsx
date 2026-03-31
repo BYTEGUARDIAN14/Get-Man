@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React, { useContext, useEffect, useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, TextInput, ActivityIndicator, StyleSheet, Share } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, TextInput, ActivityIndicator, StyleSheet, Share, Modal } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { CaretLeft, Copy, MagnifyingGlass, WarningCircle, ClockClockwise, Check } from 'phosphor-react-native';
