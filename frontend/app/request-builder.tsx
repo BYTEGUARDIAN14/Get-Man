@@ -3,7 +3,9 @@ import React, { useState, useContext, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ScrollView, Modal, FlatList, KeyboardAvoidingView, Platform, StyleSheet, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter, useLocalSearchParams } from 'expo-router';
-import { CaretLeft, BookmarkSimple, Check } from 'phosphor-react-native';
+import { CaretLeft, BookmarkSimple, Check, DotsThreeVertical, ClipboardText, DownloadSimple } from 'phosphor-react-native';
+import * as Clipboard from 'expo-clipboard';
+import { parseCurl, generateCurl } from '../src/utils/curlUtils';
 import { AppContext, useTheme } from '../src/context/AppContext';
 import { Colors, MethodColors } from '../src/constants/colors';
 import { HTTP_METHODS } from '../src/constants/methods';
@@ -37,6 +39,9 @@ export default function RequestBuilderScreen() {
   const [showSaveSheet, setShowSaveSheet] = useState(false);
   const [saveName, setSaveName] = useState('');
   const [saveCollectionId, setSaveCollectionId] = useState('');
+  const [showOptionsSheet, setShowOptionsSheet] = useState(false);
+  const [showImportModal, setShowImportModal] = useState(false);
+  const [curlInput, setCurlInput] = useState('');
 
   useEffect(() => {
     if (params.method) setMethod(params.method);
@@ -82,6 +87,30 @@ export default function RequestBuilderScreen() {
     });
     setShowSaveSheet(false);
     setSaveName('');
+  };
+
+  const handleImportCurl = () => {
+    const parsed = parseCurl(curlInput);
+    if (parsed) {
+      setMethod(parsed.method);
+      setUrl(parsed.url);
+      setHeaders(parsed.headers);
+      if (parsed.body) {
+        setBodyRaw(parsed.body);
+        setBodyType('json'); // Default to JSON if body is present
+      }
+      setShowImportModal(false);
+      setCurlInput('');
+    } else {
+      alert('Invalid cURL command');
+    }
+  };
+
+  const handleCopyCurl = async () => {
+    const curl = generateCurl({ method, url, headers, body: bodyType === 'json' ? bodyRaw : '' });
+    await Clipboard.setStringAsync(curl);
+    setShowOptionsSheet(false);
+    alert('cURL copied to clipboard');
   };
 
   const addHeaderChip = (key) => {
@@ -183,7 +212,9 @@ export default function RequestBuilderScreen() {
             <CaretLeft size={24} color={Colors.TEXT_PRIMARY} />
           </TouchableOpacity>
           <Text style={styles.title}>New Request</Text>
-          <View style={{ width: 24 }} />
+          <TouchableOpacity testID="more-options-btn" onPress={() => setShowOptionsSheet(true)}>
+            <DotsThreeVertical size={24} color={Colors.TEXT_PRIMARY} />
+          </TouchableOpacity>
         </View>
 
         <View style={styles.urlBar}>
@@ -237,6 +268,45 @@ export default function RequestBuilderScreen() {
               ))}
               <PrimaryButton title="Save" onPress={handleSave} style={{ marginTop: 16 }} disabled={!saveName.trim() || !saveCollectionId} />
             </View>
+          </TouchableOpacity>
+        </Modal>
+
+        <Modal visible={showOptionsSheet} transparent animationType="slide">
+          <TouchableOpacity style={styles.overlay} activeOpacity={1} onPress={() => setShowOptionsSheet(false)}>
+            <View style={styles.sheet}>
+              <View style={styles.handle} />
+              <Text style={styles.sheetTitle}>Request Options</Text>
+              <TouchableOpacity style={styles.methodOption} onPress={() => { setShowOptionsSheet(false); setShowImportModal(true); }}>
+                <DownloadSimple size={20} color={Colors.TEXT_PRIMARY} style={{ marginRight: 12 }} />
+                <Text style={styles.methodOptionText}>Import from cURL</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.methodOption} onPress={handleCopyCurl}>
+                <ClipboardText size={20} color={Colors.TEXT_PRIMARY} style={{ marginRight: 12 }} />
+                <Text style={styles.methodOptionText}>Copy as cURL</Text>
+              </TouchableOpacity>
+            </View>
+          </TouchableOpacity>
+        </Modal>
+
+        <Modal visible={showImportModal} transparent animationType="slide">
+          <TouchableOpacity style={styles.overlay} activeOpacity={1} onPress={() => setShowImportModal(false)}>
+            <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1, justifyContent: 'flex-end' }}>
+              <View style={styles.sheet}>
+                <View style={styles.handle} />
+                <Text style={styles.sheetTitle}>Import cURL</Text>
+                <TextInput
+                  style={[styles.jsonInput, { minHeight: 150, marginBottom: 16 }]}
+                  value={curlInput}
+                  onChangeText={setCurlInput}
+                  multiline
+                  placeholder="Paste cURL command here..."
+                  placeholderTextColor={Colors.TEXT_MUTED}
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                />
+                <PrimaryButton title="Import" onPress={handleImportCurl} disabled={!curlInput.trim()} />
+              </View>
+            </KeyboardAvoidingView>
           </TouchableOpacity>
         </Modal>
       </KeyboardAvoidingView>
