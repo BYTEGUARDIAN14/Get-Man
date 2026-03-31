@@ -42,6 +42,8 @@ export default function RequestBuilderScreen() {
   const [showOptionsSheet, setShowOptionsSheet] = useState(false);
   const [showImportModal, setShowImportModal] = useState(false);
   const [curlInput, setCurlInput] = useState('');
+  const [graphqlQuery, setGraphqlQuery] = useState('');
+  const [graphqlVariables, setGraphqlVariables] = useState('');
 
   useEffect(() => {
     if (params.method) setMethod(params.method);
@@ -61,6 +63,10 @@ export default function RequestBuilderScreen() {
       const fd = {};
       bodyFormData.filter(f => f.enabled && f.key).forEach(f => { fd[f.key] = f.value; });
       bodyData = fd;
+    }
+    else if (bodyType === 'graphql') {
+      const variables = graphqlVariables.trim() ? JSON.parse(graphqlVariables) : {};
+      bodyData = JSON.stringify({ query: graphqlQuery, variables });
     }
 
     const authMap = {};
@@ -137,14 +143,21 @@ export default function RequestBuilderScreen() {
       case 2: return (
         <View>
           <View style={styles.segmentRow}>
-            {['json', 'formdata'].map(t => (
+            {['json', 'formdata', 'graphql'].map(t => (
               <TouchableOpacity key={t} style={[styles.segment, bodyType === t && styles.segmentActive, bodyType === t && { borderBottomColor: accent }]} onPress={() => setBodyType(t)}>
-                <Text style={[styles.segmentText, bodyType === t && styles.segmentTextActive, bodyType === t && { color: accent }]}>{t === 'json' ? 'JSON' : 'Form Data'}</Text>
+                <Text style={[styles.segmentText, bodyType === t && styles.segmentTextActive, bodyType === t && { color: accent }]}>{t === 'json' ? 'JSON' : t === 'formdata' ? 'Form Data' : 'GraphQL'}</Text>
               </TouchableOpacity>
             ))}
           </View>
           {bodyType === 'json' ? (
             <TextInput testID="body-json-input" style={styles.jsonInput} value={bodyRaw} onChangeText={setBodyRaw} multiline placeholder='{"key": "value"}' placeholderTextColor={Colors.TEXT_MUTED} autoCapitalize="none" autoCorrect={false} />
+          ) : bodyType === 'graphql' ? (
+            <View>
+              <Text style={styles.fieldLabel}>QUERY</Text>
+              <TextInput style={[styles.jsonInput, { minHeight: 180, marginBottom: 12 }]} value={graphqlQuery} onChangeText={setGraphqlQuery} multiline placeholder='query { ... }' placeholderTextColor={Colors.TEXT_MUTED} autoCapitalize="none" autoCorrect={false} />
+              <Text style={styles.fieldLabel}>VARIABLES (JSON)</Text>
+              <TextInput style={[styles.jsonInput, { minHeight: 100 }]} value={graphqlVariables} onChangeText={setGraphqlVariables} multiline placeholder='{ "id": 1 }' placeholderTextColor={Colors.TEXT_MUTED} autoCapitalize="none" autoCorrect={false} />
+            </View>
           ) : (
             <KeyValueEditor data={bodyFormData} onChange={setBodyFormData} />
           )}
@@ -352,6 +365,7 @@ const styles = StyleSheet.create({
   handle: { width: 40, height: 4, borderRadius: 2, backgroundColor: Colors.BORDER, alignSelf: 'center', marginBottom: 16 },
   sheetTitle: { fontFamily: 'IBMPlexMono_700Bold', fontSize: 18, color: Colors.TEXT_PRIMARY, marginBottom: 16 },
   sheetLabel: { fontFamily: 'IBMPlexMono_500Medium', fontSize: 13, color: Colors.TEXT_MUTED, marginTop: 12, marginBottom: 8 },
+  fieldLabel: { fontFamily: 'IBMPlexMono_500Medium', fontSize: 10, color: Colors.TEXT_MUTED, marginBottom: 6, letterSpacing: 1 },
   methodOption: { flexDirection: 'row', alignItems: 'center', paddingVertical: 12, borderBottomWidth: 1, borderBottomColor: Colors.BORDER },
   methodDot: { width: 10, height: 10, borderRadius: 5, marginRight: 12 },
   methodOptionText: { fontFamily: 'IBMPlexMono_400Regular', fontSize: 14, color: Colors.TEXT_PRIMARY },
